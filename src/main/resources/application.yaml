@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: todo
+
+  datasource:
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: ${DB_URL}
+
+  jpa:
+    hibernate:
+      ddl-auto: create # 실제 운영 서버에서는 절대!!! create 옵션을 사용하지 않기!!!
+
+    # 아래부터는 실습을 위한 에러메시지, SQL 로그 관련 설정
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  error:
+    include-message: always
+
+logging:
+  level:
+    org.hibernate.SQL: debug
