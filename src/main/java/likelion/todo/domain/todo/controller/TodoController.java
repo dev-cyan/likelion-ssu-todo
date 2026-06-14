@@ -20,61 +20,66 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/todos")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class TodoController {
 
     private final TodoService todoService;
 
-    @PostMapping("/{userId}")
+    @PostMapping("/members/{memberId}/todos")
     public ResponseEntity<TodoResponseDTO> createTodo(
-            @PathVariable Long userId,
+            @PathVariable Long memberId,
             @RequestBody TodoCreateRequestDTO req
     ) {
-        return ResponseEntity.ok(todoService.createTodo(userId, req));
+        return ResponseEntity.ok(todoService.createTodo(memberId, req));
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<List<TodoResponseDTO>> getTodos(
-            @PathVariable Long userId,
+    @GetMapping("/members/{memberId}/todos")
+    public ResponseEntity<List<TodoResponseDTO>> getTodos(@PathVariable Long memberId) {
+        return ResponseEntity.ok(todoService.getTodos(memberId));
+    }
+
+    @GetMapping("/members/{memberId}/todos/daily")
+    public ResponseEntity<List<TodoResponseDTO>> getDailyTodos(
+            @PathVariable Long memberId,
             @RequestParam(required = false) Integer month,
             @RequestParam(required = false) Integer day
     ) {
-        return ResponseEntity.ok(todoService.getTodos(userId, month, day));
+        return ResponseEntity.ok(todoService.getDailyTodos(memberId, month, day));
     }
 
-    @PatchMapping("/{userId}/{todoId}")
+    @PatchMapping("/members/{memberId}/todos/{todoId}")
     public ResponseEntity<TodoResponseDTO> updateTodo(
-            @PathVariable Long userId,
+            @PathVariable Long memberId,
             @PathVariable Long todoId,
             @RequestBody TodoUpdateRequestDTO req
     ) {
-        return ResponseEntity.ok(todoService.updateTodo(userId, todoId, req));
+        return ResponseEntity.ok(todoService.updateTodo(memberId, todoId, req));
     }
 
-    @DeleteMapping("/{userId}/{todoId}")
+    @DeleteMapping("/members/{memberId}/todos/{todoId}")
     public ResponseEntity<Void> deleteTodo(
-            @PathVariable Long userId,
+            @PathVariable Long memberId,
             @PathVariable Long todoId
     ) {
-        todoService.deleteTodo(userId, todoId);
+        todoService.deleteTodo(memberId, todoId);
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/{userId}/{todoId}/check")
+    @PatchMapping("/members/{memberId}/todos/{todoId}/check")
     public ResponseEntity<TodoResponseDTO> completeTodo(
-            @PathVariable Long userId,
+            @PathVariable Long memberId,
             @PathVariable Long todoId
     ) {
-        return ResponseEntity.ok(todoService.completeTodo(userId, todoId));
+        return ResponseEntity.ok(todoService.completeTodo(memberId, todoId));
     }
 
-    @PatchMapping("/{userId}/{todoId}/reviews")
+    @PatchMapping("/members/{memberId}/todos/{todoId}/reviews")
     public ResponseEntity<TodoResponseDTO> reviewTodo(
-            @PathVariable Long userId,
+            @PathVariable Long memberId,
             @PathVariable Long todoId,
             @RequestBody TodoReviewRequestDTO req
     ) {
-        return ResponseEntity.ok(todoService.reviewTodo(userId, todoId, req));
+        return ResponseEntity.ok(todoService.reviewTodo(memberId, todoId, req));
     }
 }

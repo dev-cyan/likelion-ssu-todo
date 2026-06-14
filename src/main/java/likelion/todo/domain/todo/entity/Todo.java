@@ -52,8 +52,12 @@ public class Todo extends BaseEntity {
     }
 
     public void update(String content, LocalDateTime date) {
-        this.content = content;
-        this.date = date;
+        if (content != null) {
+            this.content = content;
+        }
+        if (date != null) {
+            this.date = date;
+        }
     }
 
     public void complete() {

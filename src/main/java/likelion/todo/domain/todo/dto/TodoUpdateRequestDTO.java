@@ -1,10 +1,10 @@
 package likelion.todo.domain.todo.dto;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 public record TodoUpdateRequestDTO(
         String content,
-        OffsetDateTime date,
+        LocalDateTime date,
         String emoji
 ) {
 }

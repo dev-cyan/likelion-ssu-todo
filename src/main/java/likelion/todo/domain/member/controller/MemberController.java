@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/members")
 @RequiredArgsConstructor
 public class MemberController {
 
@@ -27,9 +27,9 @@ public class MemberController {
         return ResponseEntity.ok(memberService.login(req));
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<MemberResponseDTO> getMember(@PathVariable Long userId) {
-        return ResponseEntity.ok(memberService.getMember(userId));
+    @GetMapping("/{memberId}")
+    public ResponseEntity<MemberResponseDTO> getMember(@PathVariable Long memberId) {
+        return ResponseEntity.ok(memberService.getMember(memberId));
     }
 
 }
