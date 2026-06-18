@@ -32,10 +32,10 @@ public class Todo extends BaseEntity {
     @Column(nullable = false)
     private LocalDateTime date;
 
-    @Column(nullable = false)
-    private boolean checked;
+    @Column(name = "is_checked", nullable = false)
+    private boolean isChecked;
 
-    @Column(length = 20)
+    @Column(length = 20) //유니코드로 들어갈 수도 있기 때문에 varchar(1)은 위험
     private String emoji;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -43,10 +43,10 @@ public class Todo extends BaseEntity {
     private Member member;
 
     @Builder
-    public Todo(String content, LocalDateTime date, boolean checked, String emoji, Member member) {
+    public Todo(String content, LocalDateTime date, boolean isChecked, String emoji, Member member) {
         this.content = content;
         this.date = date;
-        this.checked = checked;
+        this.isChecked = isChecked;
         this.emoji = emoji;
         this.member = member;
     }
@@ -61,7 +61,7 @@ public class Todo extends BaseEntity {
     }
 
     public void complete() {
-        this.checked = !this.checked;
+        this.isChecked = !this.isChecked;
     }
 
     public void updateEmoji(String emoji) {

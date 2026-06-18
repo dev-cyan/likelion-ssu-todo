@@ -36,7 +36,7 @@ public class TodoService {
         Todo todo = Todo.builder()
                 .content(req.content())
                 .date(req.date())
-                .checked(false)
+                .isChecked(false)
                 .emoji("")
                 .member(member)
                 .build();
@@ -69,7 +69,7 @@ public class TodoService {
             day = today.getDayOfMonth();
         } else if (month == null || day == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "요청 형식이 올바르지 않습니다.");
-        }
+        } //and 조건 이후에 else if로 분기하므로 둘 중 하나만 null인 경우를 방어
 
         List<Todo> todos = todoRepository.findAllByMemberIdAndMonthAndDay(memberId, month, day);
 
